@@ -38,7 +38,7 @@ const slides = [
   },
   {
     url: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1600',
-    title: 'Collaborative Office Environments',
+    title: 'Collaborative Office Environment',
   },
 ];
 
@@ -58,19 +58,19 @@ const serviceTags = [
 const stats = [
   {
     value: '240+',
-    label: 'Successful Projects',
+    label: 'Projects Delivered',
   },
   {
-    value: '100%',
+    value: '98%',
     label: 'Client Satisfaction',
-  },
-  {
-    value: '8+',
-    label: 'Years Experience',
   },
   {
     value: '24/7',
     label: 'Support',
+  },
+  {
+    value: 'Global',
+    label: 'Clients Served',
   },
 ];
 
@@ -91,23 +91,23 @@ export default function Hero({
   return (
     <section
       id="hero"
-      className="relative flex h-screen w-full items-center justify-center overflow-hidden"
+      className="relative h-screen w-full overflow-hidden"
     >
       {/* Background Slideshow */}
-      <div className="absolute inset-0 z-0 bg-neutral-950">
-        <AnimatePresence mode="popLayout">
+      <div className="absolute inset-0 bg-neutral-950">
+        <AnimatePresence mode="wait">
           <motion.div
             key={currentSlide}
             initial={{ opacity: 0, scale: 1 }}
             animate={{ opacity: 1, scale: 1.12 }}
-            exit={{ opacity: 0, scale: 1.2 }}
+            exit={{ opacity: 0, scale: 1.22 }}
             transition={{
               opacity: {
-                duration: 1.5,
+                duration: 1.4,
                 ease: 'easeInOut',
               },
               scale: {
-                duration: 6.5,
+                duration: 6,
                 ease: 'linear',
               },
             }}
@@ -117,172 +117,203 @@ export default function Hero({
               src={slides[currentSlide].url}
               alt={slides[currentSlide].title}
               referrerPolicy="no-referrer"
-              className="h-full w-full object-cover brightness-[0.65] contrast-105"
+              className="h-full w-full object-cover brightness-[0.65]"
             />
 
-            <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0b]/25 via-[#0a0a0b]/55 to-[#0a0a0b]/85" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0b]/25 via-[#0a0a0b]/55 to-[#0a0a0b]/80" />
           </motion.div>
         </AnimatePresence>
       </div>
 
-      {/* Hero Content */}
-      <div className="relative z-10 flex h-full w-full max-w-6xl flex-col items-center justify-center px-4 pt-32 pb-16 text-center sm:px-6 md:pt-36 lg:px-8">
+      {/* Main Hero */}
+      <div className="relative z-10 mx-auto flex h-full max-w-7xl items-center px-6 pt-32 pb-12">
 
-        {/* Top Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: -25 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="mb-5 inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-5 py-2"
-        >
-          <Sparkles className="h-4 w-4 text-amber-400" />
+        <div className="grid w-full items-center gap-16 lg:grid-cols-[1.4fr_0.6fr]">
 
-          <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-amber-400">
-            Global Digital & Engineering Suite
-          </span>
-        </motion.div>
+          {/* LEFT CONTENT */}
+          <div>
 
-        {/* Headline */}
-        <h1 className="max-w-5xl font-sans text-5xl font-extrabold leading-tight tracking-tight text-white sm:text-6xl md:text-7xl">
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="mb-6 inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-5 py-2"
+            >
+              <Sparkles className="h-4 w-4 text-amber-400" />
 
-          <motion.span
-            initial={{ opacity: 0, y: 35 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.8,
-              delay: 0.15,
-            }}
-            className="mb-2 block"
-          >
-            Building Ideas.
-          </motion.span>
+              <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-amber-400">
+                Global Digital & Engineering Suite
+              </span>
+            </motion.div>
 
-          <motion.span
-            initial={{ opacity: 0, y: 35 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.8,
-              delay: 0.35,
-            }}
-            className="block bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text pb-2 text-transparent"
-          >
-            Delivering Results.
-          </motion.span>
+            <h1 className="max-w-4xl text-5xl font-extrabold leading-tight text-white sm:text-6xl md:text-7xl">
 
-        </h1>
+              <motion.span
+                initial={{ opacity: 0, y: 35 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  delay: 0.1,
+                  duration: 0.8,
+                }}
+                className="block"
+              >
+                Building Ideas.
+              </motion.span>
 
-        {/* Description */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.8,
-            delay: 0.55,
-          }}
-          className="mt-4 max-w-3xl text-base font-light leading-relaxed text-neutral-300 sm:text-lg"
-        >
-          NOVIQ Digital Agency delivers premium, high-fidelity digital
-          solutions, custom web and mobile systems, architectural
-          visualizations, CAD engineering, electronics repair &
-          design, and innovative technology solutions for startups,
-          enterprises, researchers and students worldwide.
-        </motion.p>
+              <motion.span
+                initial={{ opacity: 0, y: 35 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  delay: 0.3,
+                  duration: 0.8,
+                }}
+                className="block bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent"
+              >
+                Delivering Results.
+              </motion.span>
+            </h1>
 
-        {/* Service Tags */}
-        <div className="mt-6 flex max-w-4xl flex-wrap justify-center gap-2">
-          {serviceTags.map((tag, index) => (
-            <motion.span
-              key={tag}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                delay: 0.5,
+                duration: 0.8,
+              }}
+              className="mt-6 max-w-2xl text-lg leading-relaxed text-neutral-300"
+            >
+              NOVIQ Digital Agency delivers premium digital experiences,
+              modern web platforms, mobile applications, CAD engineering,
+              electronics repair & design, architectural visualizations,
+              academic solutions and many more technology services for
+              businesses around the globe.
+            </motion.p>
+                        {/* Service Tags */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.7 }}
+              className="mt-8 flex max-w-3xl flex-wrap gap-3"
+            >
+              {serviceTags.map((tag, index) => (
+                <motion.span
+                  key={tag}
+                  initial={{
+                    opacity: 0,
+                    y: 15,
+                    scale: 0.9,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                  }}
+                  transition={{
+                    delay: 0.7 + index * 0.05,
+                    duration: 0.45,
+                  }}
+                  className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium tracking-wide text-neutral-200 backdrop-blur-sm transition-all duration-300 hover:border-amber-500/40 hover:bg-amber-500/10 hover:text-amber-400"
+                >
+                  {tag}
+                </motion.span>
+              ))}
+            </motion.div>
+
+            {/* CTA Buttons */}
+            <motion.div
               initial={{
                 opacity: 0,
-                y: 15,
-                scale: 0.9,
+                y: 25,
               }}
               animate={{
                 opacity: 1,
                 y: 0,
-                scale: 1,
               }}
               transition={{
-                duration: 0.45,
-                delay: 0.7 + index * 0.06,
+                delay: 1.25,
+                duration: 0.8,
               }}
-              className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium tracking-wide text-neutral-200 transition-all duration-300 hover:border-amber-500/40 hover:bg-amber-500/10 hover:text-amber-400"
+              className="mt-10 flex flex-col gap-4 sm:flex-row"
             >
-              {tag}
-            </motion.span>
-          ))}
-        </div>
-
-        {/* CTA Buttons */}
-        <motion.div
-          initial={{
-            opacity: 0,
-            y: 25,
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-          }}
-          transition={{
-            duration: 0.8,
-            delay: 1.4,
-          }}
-          className="mt-8 flex w-full flex-col items-center justify-center gap-4 px-4 sm:w-auto sm:flex-row"
-        >
-          <button
-            onClick={onGetStarted}
-            className="group flex w-full items-center justify-center gap-2 rounded-full bg-amber-500 px-8 py-4 font-semibold text-neutral-900 shadow-lg shadow-amber-500/20 transition-all duration-300 hover:-translate-y-1 hover:bg-white sm:w-auto"
-          >
-            <span>Get Started</span>
-
-            <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
-          </button>
-
-          <button
-            onClick={onExplorePortfolio}
-            className="group flex w-full items-center justify-center rounded-full border-2 border-amber-500 bg-transparent px-8 py-4 font-semibold text-amber-500 transition-all duration-300 hover:-translate-y-1 hover:border-white hover:bg-white hover:text-neutral-900 sm:w-auto"
-          >
-            Explore Portfolio
-          </button>
-        </motion.div>
-                {/* Hero Statistics */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.8,
-            delay: 1.8,
-          }}
-          className="mt-10 w-full max-w-5xl"
-        >
-          <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
-            {stats.map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 25 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.6,
-                  delay: 2 + index * 0.15,
-                }}
-                className="group text-center"
+              <button
+                onClick={onGetStarted}
+                className="group flex items-center justify-center gap-2 rounded-full bg-amber-500 px-8 py-4 font-semibold text-neutral-900 shadow-lg shadow-amber-500/25 transition-all duration-300 hover:-translate-y-1 hover:bg-white"
               >
-                <h3 className="text-4xl font-black text-amber-500 transition-transform duration-300 group-hover:scale-110 md:text-6xl">
-                  {stat.value}
-                </h3>
+                <span>Get Started</span>
 
-                <p className="mt-3 text-xs font-medium uppercase tracking-[0.25em] text-neutral-400">
-                  {stat.label}
-                </p>
-              </motion.div>
-            ))}
+                <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+              </button>
+
+              <button
+                onClick={onExplorePortfolio}
+                className="rounded-full border-2 border-amber-500 px-8 py-4 font-semibold text-amber-500 transition-all duration-300 hover:-translate-y-1 hover:border-white hover:bg-white hover:text-neutral-900"
+              >
+                Explore Portfolio
+              </button>
+            </motion.div>
+
           </div>
-        </motion.div>
-      </div>
 
-      {/* Decorative Glow */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#0a0a0b] via-[#0a0a0b]/60 to-transparent" />
+          {/* RIGHT SIDE METRICS */}
+          <motion.div
+            initial={{
+              opacity: 0,
+              x: 40,
+            }}
+            animate={{
+              opacity: 1,
+              x: 0,
+            }}
+            transition={{
+              delay: 1.4,
+              duration: 0.8,
+            }}
+            className="hidden lg:flex justify-end"
+          >
+            <div className="w-full max-w-[260px] rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl shadow-2xl shadow-black/30">
+
+              <p className="mb-8 text-xs font-semibold uppercase tracking-[0.35em] text-amber-400">
+                NOVIQ BY THE NUMBERS
+              </p>
+
+              <div className="space-y-8">
+                {stats.map((stat, index) => (
+                  <motion.div
+                    key={stat.label}
+                    initial={{
+                      opacity: 0,
+                      y: 25,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      y: 0,
+                    }}
+                    transition={{
+                      delay: 1.6 + index * 0.15,
+                    }}
+                    className="group"
+                  >
+                    <h2 className="text-5xl font-black leading-none text-amber-500 transition-transform duration-300 group-hover:translate-x-2">
+                      {stat.value}
+                    </h2>
+
+                    <p className="mt-2 text-[11px] uppercase tracking-[0.28em] text-neutral-400">
+                      {stat.label}
+                    </p>
+
+                    {index !== stats.length - 1 && (
+                      <div className="mt-6 h-px w-full bg-gradient-to-r from-amber-500/40 to-transparent" />
+                    )}
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
+        </div>
+      </div>
+            {/* Bottom Fade */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0a0a0b] via-[#0a0a0b]/60 to-transparent" />
     </section>
   );
 }
