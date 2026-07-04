@@ -55,7 +55,18 @@ const serviceTags = [
   'Many More...',
 ];
 
-const stats = [
+type Stat =
+  | {
+      value: number;
+      suffix: string;
+      label: string;
+    }
+  | {
+      text: string;
+      label: string;
+    };
+
+const stats: Stat[] = [
   {
     value: 240,
     suffix: '+',
@@ -84,10 +95,9 @@ export default function Hero({
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const heroRef = useRef<HTMLDivElement>(null);
-
   const isInView = useInView(heroRef, {
     once: true,
-    amount: 0.4,
+    amount: 0.3,
   });
 
   useEffect(() => {
@@ -101,16 +111,26 @@ export default function Hero({
   return (
     <section
       id="hero"
-      className="relative h-screen w-full overflow-hidden"
+      ref={heroRef}
+      className="relative min-h-screen overflow-hidden"
     >
       {/* Background Slideshow */}
       <div className="absolute inset-0 bg-neutral-950">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentSlide}
-            initial={{ opacity: 0, scale: 1 }}
-            animate={{ opacity: 1, scale: 1.12 }}
-            exit={{ opacity: 0, scale: 1.22 }}
+            initial={{
+              opacity: 0,
+              scale: 1,
+            }}
+            animate={{
+              opacity: 1,
+              scale: 1.12,
+            }}
+            exit={{
+              opacity: 0,
+              scale: 1.22,
+            }}
             transition={{
               opacity: {
                 duration: 1.4,
@@ -127,43 +147,54 @@ export default function Hero({
               src={slides[currentSlide].url}
               alt={slides[currentSlide].title}
               referrerPolicy="no-referrer"
-              className="h-full w-full object-cover brightness-[0.65]"
+              className="h-full w-full object-cover brightness-[0.75]"
             />
 
-            <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0b]/25 via-[#0a0a0b]/55 to-[#0a0a0b]/80" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0b]/20 via-[#0a0a0b]/45 to-[#0a0a0b]/80" />
           </motion.div>
         </AnimatePresence>
       </div>
 
-      {/* Hero */}
-      <div
-        ref={heroRef}
-        className="relative z-10 mx-auto flex h-full max-w-7xl items-center px-6 pt-40 md:pt-44 lg:pt-48 pb-16"
-      >
-        <div className="grid w-full items-center gap-20 lg:grid-cols-[1.45fr_0.55fr]">
+      {/* Main Hero */}
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl items-center px-6 pt-36 pb-10">
+
+        <div className="grid w-full items-center gap-14 lg:grid-cols-[1.45fr_0.55fr]">
 
           {/* LEFT CONTENT */}
-          <div className="lg:pr-8">
+          <div>
 
-            {/* Badge */}
             <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="mb-8 inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-5 py-2"
+              initial={{
+                opacity: 0,
+                y: -20,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                duration: 0.6,
+              }}
+              className="mb-5 inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-4 py-1.5"
             >
               <Sparkles className="h-4 w-4 text-amber-400" />
 
-              <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-amber-400">
+              <span className="text-[10px] font-semibold uppercase tracking-[0.28em] text-amber-400">
                 Global Digital & Engineering Suite
               </span>
             </motion.div>
 
-            {/* Heading */}
-            <h1 className="max-w-4xl text-5xl font-extrabold leading-tight text-white sm:text-6xl md:text-7xl">
-              <motion.span
-                initial={{ opacity: 0, y: 35 }}
-                animate={{ opacity: 1, y: 0 }}
+            <h1 className="max-w-4xl text-4xl font-extrabold leading-tight text-white sm:text-5xl md:text-6xl">
+
+                            <motion.span
+                initial={{
+                  opacity: 0,
+                  y: 35,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
                 transition={{
                   delay: 0.1,
                   duration: 0.8,
@@ -174,8 +205,14 @@ export default function Hero({
               </motion.span>
 
               <motion.span
-                initial={{ opacity: 0, y: 35 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{
+                  opacity: 0,
+                  y: 35,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
                 transition={{
                   delay: 0.3,
                   duration: 0.8,
@@ -186,28 +223,34 @@ export default function Hero({
               </motion.span>
             </h1>
 
-            {/* Description */}
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{
+                opacity: 0,
+                y: 20,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
               transition={{
                 delay: 0.5,
                 duration: 0.8,
               }}
-              className="mt-6 max-w-2xl text-lg leading-relaxed text-neutral-300"
+              className="mt-5 max-w-2xl text-base leading-7 text-neutral-300"
             >
               NOVIQ Digital Agency delivers premium digital experiences,
-              modern web platforms, mobile applications, CAD engineering,
+              modern websites, mobile applications, CAD engineering,
               electronics repair & design, architectural visualizations,
-              academic solutions, and innovative technology solutions for
-              startups, enterprises, researchers and students worldwide.
+              academic solutions and many more technology services for
+              businesses around the globe.
             </motion.p>
-                        {/* Service Tags */}
+
+            {/* Service Tags */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.7 }}
-              className="mt-8 flex max-w-3xl flex-wrap gap-3"
+              className="mt-7 flex max-w-3xl flex-wrap gap-2.5"
             >
               {serviceTags.map((tag, index) => (
                 <motion.span
@@ -226,7 +269,7 @@ export default function Hero({
                     delay: 0.75 + index * 0.05,
                     duration: 0.45,
                   }}
-                  className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium tracking-wide text-neutral-200 backdrop-blur-sm transition-all duration-300 hover:border-amber-500/40 hover:bg-amber-500/10 hover:text-amber-400"
+                  className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[11px] font-medium tracking-wide text-neutral-200 backdrop-blur-sm transition-all duration-300 hover:border-amber-500/40 hover:bg-amber-500/10 hover:text-amber-400"
                 >
                   {tag}
                 </motion.span>
@@ -244,14 +287,14 @@ export default function Hero({
                 y: 0,
               }}
               transition={{
-                delay: 1.3,
+                delay: 1.2,
                 duration: 0.8,
               }}
-              className="mt-10 flex flex-col gap-4 sm:flex-row"
+              className="mt-8 flex flex-col gap-4 sm:flex-row"
             >
               <button
                 onClick={onGetStarted}
-                className="group flex items-center justify-center gap-2 rounded-full bg-amber-500 px-8 py-4 font-semibold text-neutral-900 shadow-lg shadow-amber-500/25 transition-all duration-300 hover:-translate-y-1 hover:bg-white"
+                className="group flex items-center justify-center gap-2 rounded-full bg-amber-500 px-8 py-3.5 font-semibold text-neutral-900 shadow-lg shadow-amber-500/25 transition-all duration-300 hover:-translate-y-1 hover:bg-white"
               >
                 <span>Get Started</span>
 
@@ -260,7 +303,7 @@ export default function Hero({
 
               <button
                 onClick={onExplorePortfolio}
-                className="rounded-full border-2 border-amber-500 px-8 py-4 font-semibold text-amber-500 transition-all duration-300 hover:-translate-y-1 hover:border-white hover:bg-white hover:text-neutral-900"
+                className="rounded-full border-2 border-amber-500 px-8 py-3.5 font-semibold text-amber-500 transition-all duration-300 hover:-translate-y-1 hover:border-white hover:bg-white hover:text-neutral-900"
               >
                 Explore Portfolio
               </button>
@@ -268,7 +311,7 @@ export default function Hero({
 
           </div>
 
-          {/* RIGHT SIDE METRICS */}
+          {/* RIGHT METRICS */}
           <motion.div
             initial={{
               opacity: 0,
@@ -279,18 +322,18 @@ export default function Hero({
               x: 0,
             }}
             transition={{
-              delay: 1.4,
+              delay: 1.3,
               duration: 0.8,
             }}
-            className="hidden lg:flex justify-end self-start pt-16"
+            className="hidden lg:flex justify-end self-start pt-12"
           >
-            <div className="w-full max-w-[250px] rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl shadow-2xl shadow-black/30">
+            <div className="w-full max-w-[200px] rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl shadow-2xl shadow-black/30">
 
-              <p className="mb-8 text-xs font-semibold uppercase tracking-[0.35em] text-amber-400">
+              <p className="mb-6 text-[10px] font-semibold uppercase tracking-[0.35em] text-amber-400">
                 NOVIQ BY THE NUMBERS
               </p>
 
-              <div className="space-y-8">
+              <div className="space-y-6">
                 {stats.map((stat, index) => (
                   <motion.div
                     key={stat.label}
@@ -312,7 +355,7 @@ export default function Hero({
                     }}
                     className="group"
                   >
-                    <h2 className="text-5xl font-black leading-none text-amber-500 transition-transform duration-300 group-hover:translate-x-2">
+                    <h2 className="text-4xl font-black leading-none text-amber-500 transition-transform duration-300 group-hover:translate-x-2">
                       {'text' in stat ? (
                         stat.text
                       ) : (
@@ -326,12 +369,12 @@ export default function Hero({
                       )}
                     </h2>
 
-                    <p className="mt-2 text-[11px] uppercase tracking-[0.28em] text-neutral-400">
+                    <p className="mt-2 text-[10px] uppercase tracking-[0.28em] text-neutral-400">
                       {stat.label}
                     </p>
 
                     {index !== stats.length - 1 && (
-                      <div className="mt-6 h-px w-full bg-gradient-to-r from-amber-500/40 to-transparent" />
+                      <div className="mt-5 h-px w-full bg-gradient-to-r from-amber-500/40 to-transparent" />
                     )}
                   </motion.div>
                 ))}
@@ -341,15 +384,16 @@ export default function Hero({
 
         </div>
       </div>
+
             {/* Bottom Fade */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0a0a0b] via-[#0a0a0b]/60 to-transparent" />
     </section>
   );
 }
 
-/* ==========================================
+/* ==========================================================
    Animated Counter
-========================================== */
+========================================================== */
 
 function Counter({
   target,
@@ -364,6 +408,7 @@ function Counter({
     if (!trigger) return;
 
     let animationFrame: number;
+
     const duration = 1800;
     const startTime = performance.now();
 
@@ -390,5 +435,5 @@ function Counter({
     return () => cancelAnimationFrame(animationFrame);
   }, [target, trigger]);
 
-  return <>{count}</>;
+  return <>{count.toLocaleString()}</>;
 }
