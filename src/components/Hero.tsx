@@ -100,6 +100,7 @@ export default function Hero({
     amount: 0.3,
   });
 
+ 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -114,47 +115,13 @@ export default function Hero({
       ref={heroRef}
       className="relative min-h-screen overflow-hidden"
     >
-      {/* Background Slideshow */}
-      <div className="absolute inset-0 bg-neutral-950">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentSlide}
-            initial={{
-              opacity: 0,
-              scale: 1,
-            }}
-            animate={{
-              opacity: 1,
-              scale: 1.12,
-            }}
-            exit={{
-              opacity: 0,
-              scale: 1.22,
-            }}
-            transition={{
-              opacity: {
-                duration: 1.4,
-                ease: 'easeInOut',
-              },
-              scale: {
-                duration: 6,
-                ease: 'linear',
-              },
-            }}
-            className="absolute inset-0"
-          >
-            <img
-              src={slides[currentSlide].url}
-              alt={slides[currentSlide].title}
-              referrerPolicy="no-referrer"
-              className="h-full w-full object-cover brightness-[0.75]"
-            />
+    useEffect(() => {
+  const timer = setInterval(() => {
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
+  }, 6000);
 
-            <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0b]/20 via-[#0a0a0b]/45 to-[#0a0a0b]/80" />
-          </motion.div>
-        </AnimatePresence>
-      </div>
-
+  return () => clearInterval(timer);
+}, []);
       {/* Main Hero */}
       <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl items-center px-6 pt-20 pb-10">
 
