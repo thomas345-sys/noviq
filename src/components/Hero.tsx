@@ -431,3 +431,5 @@ useEffect(() => {
     cancelAnimationFrame(animationFrame);
   };
 }, [target, trigger]);
+  return <>{count.toLocaleString()}</>;
+}
