@@ -395,20 +395,13 @@ export default function Hero({
    Animated Counter
 ========================================================== */
 
-function Counter({
-  target,
-  trigger,
-}: {
-  target: number;
-  trigger: boolean;
-}) {
-  const [count, setCount] = useState(0);
+useEffect(() => {
+  if (!trigger) return;
 
-  useEffect(() => {
-    if (!trigger) return;
+  let animationFrame: number;
 
-    let animationFrame: number;
-
+  // Delay before the counter starts
+  const timer = setTimeout(() => {
     const duration = 1800;
     const startTime = performance.now();
 
@@ -431,9 +424,10 @@ function Counter({
     };
 
     animationFrame = requestAnimationFrame(animate);
+  }, 800); // <-- Change this value to adjust the delay
 
-    return () => cancelAnimationFrame(animationFrame);
-  }, [target, trigger]);
-
-  return <>{count.toLocaleString()}</>;
-}
+  return () => {
+    clearTimeout(timer);
+    cancelAnimationFrame(animationFrame);
+  };
+}, [target, trigger]);
