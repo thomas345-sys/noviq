@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import ParticleBackground from './components/ParticleBackground';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import Stats from './components/Stats';
 import Services from './components/Services';
 import Portfolio from './components/Portfolio';
 import WhyChooseUs from './components/WhyChooseUs';
@@ -14,20 +13,31 @@ import { Hexagon, Heart } from 'lucide-react';
 export default function App() {
   const [activeSection, setActiveSection] = useState('hero');
 
-  // Smooth click scroll handler
   const handleNavClick = (sectionId: string) => {
     setActiveSection(sectionId);
+
     const element = document.getElementById(sectionId);
+
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({
+        behavior: 'smooth',
+      });
     }
   };
 
-  // Setup IntersectionObserver to dynamically track visible section on scroll
   useEffect(() => {
-    const sections = ['hero', 'services', 'portfolio', 'why-choose-us', 'testimonials', 'contact'];
+    const sections = [
+      'hero',
+      'services',
+      'portfolio',
+      'why-choose-us',
+      'testimonials',
+      'contact',
+    ];
+
     const observers = sections.map((sectionId) => {
       const el = document.getElementById(sectionId);
+
       if (!el) return null;
 
       const observer = new IntersectionObserver(
@@ -37,12 +47,16 @@ export default function App() {
           }
         },
         {
-          rootMargin: '-50% 0px -50% 0px', // Triggers when section occupies middle of screen
+          rootMargin: '-50% 0px -50% 0px',
         }
       );
 
       observer.observe(el);
-      return { observer, el };
+
+      return {
+        observer,
+        el,
+      };
     });
 
     return () => {
@@ -55,56 +69,65 @@ export default function App() {
   }, []);
 
   return (
-    <div className="relative text-white font-sans bg-[#0a0a0b] selection:bg-amber-500 selection:text-neutral-900 overflow-x-hidden min-h-screen">
-      {/* 1. Technical blueprint particle canvas background */}
+    <div className="relative min-h-screen overflow-x-hidden bg-[#0a0a0b] font-sans text-white selection:bg-amber-500 selection:text-neutral-900">
+
+      {/* 1. Background */}
       <ParticleBackground />
 
-      {/* 2. Glassmorphism fixed Navigation bar */}
-      <Navbar activeSection={activeSection} onNavClick={handleNavClick} />
+      {/* 2. Navbar */}
+      <Navbar
+        activeSection={activeSection}
+        onNavClick={handleNavClick}
+      />
 
-      {/* 3. Full-screen Slideshow Hero Section */}
+      {/* 3. Hero */}
       <Hero
         onExplorePortfolio={() => handleNavClick('portfolio')}
         onGetStarted={() => handleNavClick('contact')}
       />
 
-      {/* 4. Animated counters section */}
-      <Stats />
-
-      {/* 5. Custom Premium Services Grid */}
+      {/* 4. Services */}
       <Services />
 
-      {/* 6. Pinterest Masonry Portfolio */}
+      {/* 5. Portfolio */}
       <Portfolio />
 
-      {/* 7. Animated floating cards core values section */}
+      {/* 6. Why Choose Us */}
       <WhyChooseUs />
 
-      {/* 8. Client Testimonials Carousel */}
+      {/* 7. Testimonials */}
       <Testimonials />
 
-      {/* 9. High-converting inquiry form with file attachment */}
+      {/* 8. Contact */}
       <Contact />
 
-      {/* 10. Floating WhatsApp regional quicklinks */}
+      {/* 9. Floating WhatsApp */}
       <FloatingWhatsApp />
 
-      {/* 11. Custom Footnotes */}
-      <footer className="relative py-12 border-t border-white/5 bg-[#050506] text-neutral-500 text-center text-xs sm:text-sm space-y-4">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-6">
+      {/* Footer */}
+      <footer className="relative border-t border-white/5 bg-[#050506] py-12 text-center text-xs text-neutral-500 sm:text-sm">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-4 sm:flex-row">
           <div className="flex items-center space-x-2">
-            <Hexagon className="w-5 h-5 text-amber-500 fill-amber-500/10" />
-            <span className="font-extrabold text-white tracking-wider">NOVIQ</span>
-            <span className="text-[10px] text-amber-500 tracking-widest font-bold uppercase">Digital Agency</span>
+            <Hexagon className="h-5 w-5 fill-amber-500/10 text-amber-500" />
+
+            <span className="font-extrabold tracking-wider text-white">
+              NOVIQ
+            </span>
+
+            <span className="text-[10px] font-bold uppercase tracking-widest text-amber-500">
+              Digital Agency
+            </span>
           </div>
-          
+
           <p className="font-light text-neutral-400">
             &copy; {new Date().getFullYear()} NOVIQ Digital Agency. All rights reserved.
           </p>
 
           <div className="flex items-center space-x-1.5 font-light text-neutral-400">
             <span>Delivered globally with</span>
-            <Heart className="w-3.5 h-3.5 text-amber-500 fill-amber-500 animate-pulse" />
+
+            <Heart className="h-3.5 w-3.5 animate-pulse fill-amber-500 text-amber-500" />
+
             <span>from Kenya &amp; Canada</span>
           </div>
         </div>
