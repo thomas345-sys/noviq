@@ -395,41 +395,51 @@ export default function Hero({
    Animated Counter
 ========================================================== */
 
-useEffect(() => {
-  if (!trigger) return;
+function Counter({
+  target,
+  trigger,
+}: {
+  target: number;
+  trigger: boolean;
+}) {
+  const [count, setCount] = useState(0);
 
-  let animationFrame: number;
+  useEffect(() => {
+    if (!trigger) return;
 
-  // Delay before the counter starts
-  const timer = setTimeout(() => {
-    const duration = 1800;
-    const startTime = performance.now();
+    let animationFrame: number;
 
-    const animate = (currentTime: number) => {
-      const progress = Math.min(
-        (currentTime - startTime) / duration,
-        1
-      );
+    // Delay before the counter starts
+    const timer = setTimeout(() => {
+      const duration = 1800;
+      const startTime = performance.now();
 
-      // Ease-out cubic
-      const eased = 1 - Math.pow(1 - progress, 3);
+      const animate = (currentTime: number) => {
+        const progress = Math.min(
+          (currentTime - startTime) / duration,
+          1
+        );
 
-      setCount(Math.floor(eased * target));
+        // Ease-out cubic
+        const eased = 1 - Math.pow(1 - progress, 3);
 
-      if (progress < 1) {
-        animationFrame = requestAnimationFrame(animate);
-      } else {
-        setCount(target);
-      }
+        setCount(Math.floor(eased * target));
+
+        if (progress < 1) {
+          animationFrame = requestAnimationFrame(animate);
+        } else {
+          setCount(target);
+        }
+      };
+
+      animationFrame = requestAnimationFrame(animate);
+    }, 800); // Change this delay if desired
+
+    return () => {
+      clearTimeout(timer);
+      cancelAnimationFrame(animationFrame);
     };
+  }, [target, trigger]);
 
-    animationFrame = requestAnimationFrame(animate);
-  }, 800); // <-- Change this value to adjust the delay
-
-  return () => {
-    clearTimeout(timer);
-    cancelAnimationFrame(animationFrame);
-  };
-}, [target, trigger]);
   return <>{count.toLocaleString()}</>;
 }
