@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useInView } from 'motion/react';
+import { motion, useInView } from 'motion/react';
 import { ArrowRight, Sparkles } from 'lucide-react';
 
 interface HeroProps {
@@ -7,40 +7,8 @@ interface HeroProps {
   onGetStarted: () => void;
 }
 
-const slides = [
-  {
-    url: 'https://images.unsplash.com/photo-1618477388954-7852f32655ec?auto=format&fit=crop&q=80&w=1600',
-    title: 'Modern Software Development Workstation',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&q=80&w=1600',
-    title: 'Responsive Digital Systems',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&q=80&w=1600',
-    title: 'High-Fidelity Mobile Applications',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1600',
-    title: 'Architectural Visualizations',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1600',
-    title: 'Mechanical Engineering Models',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&q=80&w=1600',
-    title: 'Automotive CAD Modeling',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=1600',
-    title: 'Luxury Interior Designs',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1600',
-    title: 'Collaborative Office Environment',
-  },
-];
+const backgroundImage =
+  'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=1600';
 
 const serviceTags = [
   'Website Development',
@@ -92,22 +60,12 @@ export default function Hero({
   onExplorePortfolio,
   onGetStarted,
 }: HeroProps) {
-  const [currentSlide, setCurrentSlide] = useState(0);
-
   const heroRef = useRef<HTMLDivElement>(null);
+
   const isInView = useInView(heroRef, {
     once: true,
     amount: 0.3,
   });
-
- 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 6000);
-
-    return () => clearInterval(timer);
-  }, []);
 
   return (
     <section
@@ -115,13 +73,28 @@ export default function Hero({
       ref={heroRef}
       className="relative min-h-screen overflow-hidden"
     >
-    useEffect(() => {
-  const timer = setInterval(() => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
-  }, 6000);
+      {/* Single Background Image */}
+      <div className="absolute inset-0 overflow-hidden bg-neutral-950">
 
-  return () => clearInterval(timer);
-}, []);
+        <motion.img
+          src={backgroundImage}
+          alt="Luxury Interior Design"
+          referrerPolicy="no-referrer"
+          className="absolute inset-0 h-full w-full object-cover brightness-[0.75]"
+          animate={{
+            scale: [1.05, 1.14, 1.05],
+          }}
+          transition={{
+            duration: 22,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0b]/20 via-[#0a0a0b]/45 to-[#0a0a0b]/80" />
+
+      </div>
+
       {/* Main Hero */}
       <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl items-center px-6 pt-20 pb-10">
 
@@ -153,7 +126,7 @@ export default function Hero({
 
             <h1 className="max-w-4xl text-4xl font-extrabold leading-tight text-white sm:text-5xl md:text-6xl">
 
-                            <motion.span
+              <motion.span
                 initial={{
                   opacity: 0,
                   y: 35,
@@ -212,7 +185,6 @@ export default function Hero({
               businesses around the globe.
             </motion.p>
 
-            {/* Service Tags */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -242,8 +214,7 @@ export default function Hero({
                 </motion.span>
               ))}
             </motion.div>
-
-            {/* CTA Buttons */}
+                        {/* CTA Buttons */}
             <motion.div
               initial={{
                 opacity: 0,
@@ -352,7 +323,7 @@ export default function Hero({
         </div>
       </div>
 
-            {/* Bottom Fade */}
+      {/* Bottom Fade */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0a0a0b] via-[#0a0a0b]/60 to-transparent" />
     </section>
   );
@@ -376,7 +347,7 @@ function Counter({
 
     let animationFrame: number;
 
-    // Delay before the counter starts
+    // Delay before counting starts
     const timer = setTimeout(() => {
       const duration = 1800;
       const startTime = performance.now();
@@ -400,7 +371,7 @@ function Counter({
       };
 
       animationFrame = requestAnimationFrame(animate);
-    }, 800); // Change this delay if desired
+    }, 800);
 
     return () => {
       clearTimeout(timer);
