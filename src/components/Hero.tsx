@@ -156,7 +156,7 @@ export default function Hero({
       </div>
 
       {/* Main Hero */}
-      <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl items-center px-6 pt-36 pb-10">
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl items-center px-6 pt-20 pb-10">
 
         <div className="grid w-full items-center gap-14 lg:grid-cols-[1.45fr_0.55fr]">
 
