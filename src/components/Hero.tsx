@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useInView } from 'motion/react';
 import { ArrowRight, Sparkles } from 'lucide-react';
 
 interface HeroProps {
@@ -57,19 +57,22 @@ const serviceTags = [
 
 const stats = [
   {
-    value: '240+',
+    value: 240,
+    suffix: '+',
     label: 'Projects Delivered',
   },
   {
-    value: '98%',
+    value: 98,
+    suffix: '%',
     label: 'Client Satisfaction',
   },
   {
-    value: '24/7',
+    value: 24,
+    suffix: '/7',
     label: 'Support',
   },
   {
-    value: 'Global',
+    text: 'Global',
     label: 'Clients Served',
   },
 ];
@@ -79,6 +82,13 @@ export default function Hero({
   onGetStarted,
 }: HeroProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
+
+  const heroRef = useRef<HTMLDivElement>(null);
+
+  const isInView = useInView(heroRef, {
+    once: true,
+    amount: 0.4,
+  });
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -125,19 +135,22 @@ export default function Hero({
         </AnimatePresence>
       </div>
 
-      {/* Main Hero */}
-      <div className="relative z-10 mx-auto flex h-full max-w-7xl items-center px-6 pt-32 pb-12">
-
-        <div className="grid w-full items-center gap-16 lg:grid-cols-[1.4fr_0.6fr]">
+      {/* Hero */}
+      <div
+        ref={heroRef}
+        className="relative z-10 mx-auto flex h-full max-w-7xl items-center px-6 pt-40 md:pt-44 lg:pt-48 pb-16"
+      >
+        <div className="grid w-full items-center gap-20 lg:grid-cols-[1.45fr_0.55fr]">
 
           {/* LEFT CONTENT */}
-          <div>
+          <div className="lg:pr-8">
 
+            {/* Badge */}
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="mb-6 inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-5 py-2"
+              className="mb-8 inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-5 py-2"
             >
               <Sparkles className="h-4 w-4 text-amber-400" />
 
@@ -146,8 +159,8 @@ export default function Hero({
               </span>
             </motion.div>
 
+            {/* Heading */}
             <h1 className="max-w-4xl text-5xl font-extrabold leading-tight text-white sm:text-6xl md:text-7xl">
-
               <motion.span
                 initial={{ opacity: 0, y: 35 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -173,6 +186,7 @@ export default function Hero({
               </motion.span>
             </h1>
 
+            {/* Description */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -185,8 +199,8 @@ export default function Hero({
               NOVIQ Digital Agency delivers premium digital experiences,
               modern web platforms, mobile applications, CAD engineering,
               electronics repair & design, architectural visualizations,
-              academic solutions and many more technology services for
-              businesses around the globe.
+              academic solutions, and innovative technology solutions for
+              startups, enterprises, researchers and students worldwide.
             </motion.p>
                         {/* Service Tags */}
             <motion.div
@@ -209,7 +223,7 @@ export default function Hero({
                     scale: 1,
                   }}
                   transition={{
-                    delay: 0.7 + index * 0.05,
+                    delay: 0.75 + index * 0.05,
                     duration: 0.45,
                   }}
                   className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium tracking-wide text-neutral-200 backdrop-blur-sm transition-all duration-300 hover:border-amber-500/40 hover:bg-amber-500/10 hover:text-amber-400"
@@ -230,7 +244,7 @@ export default function Hero({
                 y: 0,
               }}
               transition={{
-                delay: 1.25,
+                delay: 1.3,
                 duration: 0.8,
               }}
               className="mt-10 flex flex-col gap-4 sm:flex-row"
@@ -268,9 +282,9 @@ export default function Hero({
               delay: 1.4,
               duration: 0.8,
             }}
-            className="hidden lg:flex justify-end"
+            className="hidden lg:flex justify-end self-start pt-16"
           >
-            <div className="w-full max-w-[260px] rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl shadow-2xl shadow-black/30">
+            <div className="w-full max-w-[250px] rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl shadow-2xl shadow-black/30">
 
               <p className="mb-8 text-xs font-semibold uppercase tracking-[0.35em] text-amber-400">
                 NOVIQ BY THE NUMBERS
@@ -284,17 +298,32 @@ export default function Hero({
                       opacity: 0,
                       y: 25,
                     }}
-                    animate={{
-                      opacity: 1,
-                      y: 0,
-                    }}
+                    animate={
+                      isInView
+                        ? {
+                            opacity: 1,
+                            y: 0,
+                          }
+                        : {}
+                    }
                     transition={{
-                      delay: 1.6 + index * 0.15,
+                      duration: 0.5,
+                      delay: 1.5 + index * 0.15,
                     }}
                     className="group"
                   >
                     <h2 className="text-5xl font-black leading-none text-amber-500 transition-transform duration-300 group-hover:translate-x-2">
-                      {stat.value}
+                      {'text' in stat ? (
+                        stat.text
+                      ) : (
+                        <>
+                          <Counter
+                            target={stat.value}
+                            trigger={isInView}
+                          />
+                          <span>{stat.suffix}</span>
+                        </>
+                      )}
                     </h2>
 
                     <p className="mt-2 text-[11px] uppercase tracking-[0.28em] text-neutral-400">
@@ -316,4 +345,50 @@ export default function Hero({
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0a0a0b] via-[#0a0a0b]/60 to-transparent" />
     </section>
   );
+}
+
+/* ==========================================
+   Animated Counter
+========================================== */
+
+function Counter({
+  target,
+  trigger,
+}: {
+  target: number;
+  trigger: boolean;
+}) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!trigger) return;
+
+    let animationFrame: number;
+    const duration = 1800;
+    const startTime = performance.now();
+
+    const animate = (currentTime: number) => {
+      const progress = Math.min(
+        (currentTime - startTime) / duration,
+        1
+      );
+
+      // Ease-out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+
+      setCount(Math.floor(eased * target));
+
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(animate);
+      } else {
+        setCount(target);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(animate);
+
+    return () => cancelAnimationFrame(animationFrame);
+  }, [target, trigger]);
+
+  return <>{count}</>;
 }
