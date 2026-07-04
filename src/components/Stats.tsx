@@ -1,7 +1,7 @@
 // import { useEffect, useState, useRef } from 'react';
 // import { motion, useInView } from 'motion/react';
 // import { statsData } from '../data';
-
+//not
 // export default function Stats() {
 //   const containerRef = useRef<HTMLDivElement>(null);
 //   const isInView = useInView(containerRef, { once: true, amount: 0.3 });
