@@ -8,7 +8,7 @@ interface HeroProps {
 }
 
 const backgroundImage =
-  'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=1600';
+  'https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&q=80&w=1600';
 
 const serviceTags = [
   'Website Development',
